@@ -38,10 +38,10 @@ def list_handler(name, data, parent_class):
         class_data = handlers[type(item).__name__](child_name, item, child_class_name )
 
 
-def convert_to_colander(a):
+def convert_to_colander(json_data):
     output_file_path = sys.argv[1]
     output_dict['Response'] = "class Response(colander):\n"
-    handlers[type(a).__name__]("", a, "Response", start=True)
+    handlers[type(json_data).__name__]("", json_data, "Response", start=True)
     f = open(output_file_path, "w")
     for d in output_dict.itervalues():
         f.write(d)
@@ -54,5 +54,3 @@ handlers = { "dict": dictionary_handler,
              "str": string_handler,
              "int": int_handler,
            }
-
-convert_to_colander(a)
